@@ -1,19 +1,23 @@
 {
   "name": "lumene-portfolio",
+  "homepage": "https://lumene98.github.io/portfolio/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "babel-loader": "^8.0.5",
+    "gh-pages": "^2.0.1",
     "mo-js": "^0.288.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
-    "react-scripts": "2.1.8",
-    "babel-loader": "^8.0.5"
+    "react-scripts": "2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": "react-app"
