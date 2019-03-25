@@ -2,9 +2,11 @@ body {
   background: dodgerblue;
   display: flex;
   height: 100vh;
+  width: 100vw;
   align-items: center;
   justify-content: center;
   font-family: Roboto, sans-serif;
+  overflow: hidden;
 }
 h1 {
   color: white;
@@ -12,21 +14,7 @@ h1 {
 }
 
 button, a {
-  border: 2px solid white;
-  padding: 15px 30px;
-  font-size: 100%;
-  background: none;
-  border-radius: 5px;
-  color: white;
-  text-decoration: none;
-  margin: 15px;
-  transition: all 150ms ease-in-out;
   outline: none;
-}
-
-button:active, a:active {
-  background: white;
-  color: dodgerblue;
 }
 
 button:focus{
@@ -35,6 +23,7 @@ button:focus{
 }
 
 button::-moz-focus-inner { border: 0; }
+a::-moz-focus-inner { border: 0; }
 
 .footer {
   position: fixed;
@@ -48,13 +37,11 @@ button::-moz-focus-inner { border: 0; }
 
 .footer button{
     border: 2px solid white;
-    padding: 15px 30px;
     font-size: 75%;
     background: none;
     border-radius: 25px;
     color: white;
     text-decoration: none;
-    margin: 10px;
     transition: all 150ms ease-in-out;
     outline: none;
   
@@ -71,5 +58,14 @@ button::-moz-focus-inner { border: 0; }
   margin: 10px;
   transition: all 150ms ease-in-out;
   outline: none;
+}
 
+.footer button:active, .footer a:active {
+  background: white;
+  color: dodgerblue;
+}
+
+#root {
+  height: 100vh;
+  width: 100vw;
 }

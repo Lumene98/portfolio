@@ -3,20 +3,26 @@ import mojs from 'mo-js';
 import './App.css';
 import Toolbar from './components/Toolbar';
 import Footer from './components/Footer';
+import Rocket from './components/Rocket';
 
 class App extends Component {
+
+  state = {
+    numBurstsToGenerate: 5,
+    bursts: [],
+    rocket: false,
+  }
+
   constructor(props) {
     super(props);
     this.moon = React.createRef();
 
-    this.timeline = new mojs.Timeline({
-      duration: 6000
-    })
+    this.timeline = new mojs.Timeline();
     this.timeline.add(new mojs.Shape({
       shape: 'rect',
       fill: 'none',
-      radius: 60,
-      top: '30%',
+      radius: 80,
+      top: '40%',
       stroke: { 'orange': 'magenta' },
       strokeWidth: { 10: 0 },
       strokeDasharray: '100%',
@@ -29,8 +35,8 @@ class App extends Component {
     this.timeline.add(new mojs.Shape({
       shape: 'circle',
       fill: 'none',
-      radius: 40,
-      top: '30%',
+      radius: 60,
+      top: '40%',
       stroke: { 'orange': 'magenta' },
       strokeWidth: { 10: 0 },
       strokeDasharray: '100%',
@@ -42,8 +48,8 @@ class App extends Component {
 
     this.timeline.add(this.lilRect = new mojs.Shape({
       shape: 'rect',
-      radius: 20,
-      top: '30%',
+      radius: 30,
+      top: '40%',
       fill: { 'orange': 'magenta' },
       angle: { 0: 180 },
       duration: 3000,
@@ -79,10 +85,10 @@ class App extends Component {
     }));
 
     this.timeline.append(new mojs.Burst({
-      radius: { 25: 75 },
-      count: 10,
-      top: '30%',
-      duration: 2000,
+      radius: { 25: 100 },
+      count: 30,
+      top: '40%',
+      duration: 4000,
       children: {
         shape: ['circle', 'polygon'],
         fill: ['#333', 'magenta', 'purple'],
@@ -90,8 +96,74 @@ class App extends Component {
         degreeShift: 'rand(-360, 360)',
         delay: 'stagger(0, 25)',
       }
-    }));
+    }).then(this.setState({ visibility: true })));
     this.timeline.play();
+  }
+  handleReload = () => {
+    this.timeline.replay();
+  }
+
+  rand = ({ min = 0, max = 1, int = true }) => {
+    if (int) {
+      return Math.floor(Math.random() * (max - min) + min)
+    } else {
+      return Math.random() * (max - min) + min
+    }
+  }
+
+  generateBursts = (numBursts = this.state.numBurstsToGenerate) => {
+    this.setState({
+      bursts: [],
+    })
+
+    while (this.state.bursts.length < this.state.numBurstsToGenerate) {
+      this.state.bursts.push(
+        new mojs.Burst({
+          left: 0,
+          top: 0,
+          radius: { 4: 19 },
+          angle: this.rand({ min: 0, max: 359 }),
+          children: {
+            shape: `line`,
+            radius: this.rand({ min: 2, max: 12 }),
+            scale: this.rand({ min: 0.5, max: 1.1, int: false }),
+            stroke: `rgb(
+            ${this.rand({ min: 175, max: 255 })},
+            ${this.rand({ min: 175, max: 255 })},
+            ${this.rand({ min: 175, max: 255 })}
+          )`,
+            strokeDasharray: `100%`,
+            strokeDashoffset: { '-100%': `100%` },
+            duration: this.rand({ min: 400, max: 600 }),
+            easing: `quad.out`,
+          },
+          onStart() {
+            this.el.style.zIndex = `9999`
+          },
+          onComplete() {
+            this.el.style.zIndex = `-666` // curse ye to hell foul demon!
+          },
+        }),
+      )
+    }
+  }
+
+  componentDidMount() {
+    if (this.state.bursts.length !== this.state.numBurstsToGenerate) {
+      this.generateBursts()
+    }
+  }
+
+  kaboom = (e) => {
+    e.stopPropagation()
+
+    if (this.state.bursts.length !== this.state.numBurstsToGenerate) {
+      this.generateBursts()
+    }
+
+    this.state.bursts[this.rand({ max: this.state.bursts.length })]
+      .tune({ x: e.pageX, y: e.pageY })
+      .replay()
 
 
   }
@@ -99,9 +171,12 @@ class App extends Component {
 
   render() {
     return (
-      <div style={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+      <div onClick={(e) => this.kaboom(e)} style={{
+        height: '100vh', width: "100vw", display: 'flex', flexDirection: 'column', textAlign: 'center'
+      }}>
         <h1>Hello, I'm Luca...</h1>
-        <Toolbar />
+        <Toolbar reload={this.handleReload} />
+        <Rocket visibility={this.state.rocket} />
         <Footer />
       </div>
     );
