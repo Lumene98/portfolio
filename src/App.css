@@ -35,27 +35,11 @@ a::-moz-focus-inner { border: 0; }
   text-align: center;
 }
 
-.footer button{
-    border: 2px solid white;
-    font-size: 75%;
-    background: none;
-    border-radius: 25px;
-    color: white;
-    text-decoration: none;
-    transition: all 150ms ease-in-out;
-    outline: none;
-  
-}
-
-.footer a{
-  border: 1px solid white;
-  padding: 10px 15px;
-  font-size: 100%;
+.footer a{  
   background: none;
-  border-radius: 25px;
   color: white;
   text-decoration: none;
-  margin: 10px;
+  padding: 0  10px 0 10px;
   transition: all 150ms ease-in-out;
   outline: none;
 }
