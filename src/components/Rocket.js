@@ -4,8 +4,8 @@ function Rocket(props) {
     const { visibility } = props;
     return (
         <div style={{ display: 'flex', justifyContent: 'center', height: '65vh' }}>
-            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '20px' }}>
-                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" width='65vw' height='65vh' x="0px" y="0px" viewBox="0 0 512 512" style={{ visibility: visibility ? '' : 'hidden' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', paddingTop: '40px' }}>
+                <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" width='50vw' height='50vh' x="0px" y="0px" viewBox="0 0 512 512" style={{ visibility: visibility ? '' : 'hidden' }}>
                     <circle fill='#1A2B63' cx="256" cy="267" r="245" />
                     <path fill="#D9EAFC" d="M216.796,378.925c12.65,0,24.304,6.362,31.175,17.02c0.169,0.263,0.453,0.432,0.765,0.455  c0.025,0.002,0.051,0.003,0.076,0.003c0.286,0,0.559-0.122,0.749-0.338c10.3-11.651,25.108-18.333,40.627-18.333  c5.288,0,10.396,0.774,15.231,2.193l-17.846-45.745h-63.146l-18.041,46.244C209.691,379.454,213.182,378.925,216.796,378.925z" />
                     <g>
