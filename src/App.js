@@ -13,10 +13,62 @@ class App extends Component {
     rocket: false,
   }
 
-  constructor(props) {
-    super(props);
-    this.moon = React.createRef();
+  handleReload = () => {
+    this.setState({ rocket: false })
+    this.timeline.stop();
+    this.timeline.play();
+  }
 
+  rand = ({ min = 0, max = 1, int = true }) => {
+    if (int) {
+      return Math.floor(Math.random() * (max - min) + min)
+    } else {
+      return Math.random() * (max - min) + min
+    }
+  }
+
+  generateBursts = (numBursts = this.state.numBurstsToGenerate) => {
+    this.setState({
+      bursts: [],
+    })
+
+    while (this.state.bursts.length < this.state.numBurstsToGenerate) {
+      this.state.bursts.push(
+        new mojs.Burst({
+          left: 0,
+          top: 0,
+          radius: { 4: 19 },
+          angle: this.rand({ min: 0, max: 359 }),
+          children: {
+            shape: `line`,
+            radius: this.rand({ min: 2, max: 12 }),
+            scale: this.rand({ min: 0.5, max: 1.1, int: false }),
+            stroke: `rgb(
+            ${this.rand({ min: 175, max: 255 })},
+            ${this.rand({ min: 175, max: 255 })},
+            ${this.rand({ min: 175, max: 255 })}
+          )`,
+            strokeDasharray: `100%`,
+            strokeDashoffset: { '-100%': `100%` },
+            duration: this.rand({ min: 400, max: 600 }),
+            easing: `quad.out`,
+          },
+          onStart() {
+            this.el.style.zIndex = `9999`
+          },
+          onComplete() {
+            this.el.style.zIndex = `-666` // curse ye to hell foul demon!
+          },
+        }),
+      )
+    }
+  }
+
+  componentDidMount() {
+    const that = this;
+    if (this.state.bursts.length !== this.state.numBurstsToGenerate) {
+      this.generateBursts()
+    }
     this.timeline = new mojs.Timeline();
     this.timeline.add(new mojs.Shape({
       shape: 'rect',
@@ -75,7 +127,8 @@ class App extends Component {
       fill: { 'magenta': 'cyan' },
       radius: 25,
       duration: 2000,
-      repeat: 0
+      repeat: 0,
+      easing: 'elastic.inout',
     }).then({
       scale: { 4: 0 },
       radius: 25,
@@ -95,63 +148,12 @@ class App extends Component {
         angle: { 0: 180 },
         degreeShift: 'rand(-360, 360)',
         delay: 'stagger(0, 25)',
+      },
+      onComplete(isForward, isYoyo) {
+        that.setState({ rocket: true });
       }
-    }).then(this.setState({ visibility: true })));
+    }));
     this.timeline.play();
-  }
-  handleReload = () => {
-    this.timeline.replay();
-  }
-
-  rand = ({ min = 0, max = 1, int = true }) => {
-    if (int) {
-      return Math.floor(Math.random() * (max - min) + min)
-    } else {
-      return Math.random() * (max - min) + min
-    }
-  }
-
-  generateBursts = (numBursts = this.state.numBurstsToGenerate) => {
-    this.setState({
-      bursts: [],
-    })
-
-    while (this.state.bursts.length < this.state.numBurstsToGenerate) {
-      this.state.bursts.push(
-        new mojs.Burst({
-          left: 0,
-          top: 0,
-          radius: { 4: 19 },
-          angle: this.rand({ min: 0, max: 359 }),
-          children: {
-            shape: `line`,
-            radius: this.rand({ min: 2, max: 12 }),
-            scale: this.rand({ min: 0.5, max: 1.1, int: false }),
-            stroke: `rgb(
-            ${this.rand({ min: 175, max: 255 })},
-            ${this.rand({ min: 175, max: 255 })},
-            ${this.rand({ min: 175, max: 255 })}
-          )`,
-            strokeDasharray: `100%`,
-            strokeDashoffset: { '-100%': `100%` },
-            duration: this.rand({ min: 400, max: 600 }),
-            easing: `quad.out`,
-          },
-          onStart() {
-            this.el.style.zIndex = `9999`
-          },
-          onComplete() {
-            this.el.style.zIndex = `-666` // curse ye to hell foul demon!
-          },
-        }),
-      )
-    }
-  }
-
-  componentDidMount() {
-    if (this.state.bursts.length !== this.state.numBurstsToGenerate) {
-      this.generateBursts()
-    }
   }
 
   kaboom = (e) => {
