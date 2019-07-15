@@ -174,7 +174,7 @@ class App extends Component {
   render() {
     return (
       <div onClick={(e) => this.kaboom(e)} style={{
-        height: '100vh', width: "100vw", display: 'flex', flexDirection: 'column', textAlign: 'center'
+        height: '100vh', width: "100vw", display: 'flex', flexDirection: 'column', textAlign: 'center', overflow: 'hidden'
       }}>
         <h1>Hello, I'm Luca...</h1>
         <Toolbar reload={this.handleReload} />
