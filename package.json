@@ -4,13 +4,24 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/preset-flow": "^7.0.0",
+    "babel-eslint": "^10.0.2",
     "babel-loader": "^8.0.5",
-    "gh-pages": "^2.0.1",
+    "babel-plugin-macros": "^2.6.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "flow-bin": "^0.104.0",
+    "flow-typed": "^2.6.1",
+    "gh-pages": "2.0.1",
+    "lodash": "^4.17.13",
     "mo-js": "^0.288.2",
+    "prettier": "^1.18.2",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-scripts": "^2.1.8",
-    "lodash": "^4.17.13"
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -18,11 +29,48 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "flow": "flow check",
+    "precommit": "lint-staged"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
-  "browserslist": [">0.2%", "not dead", "not ie <= 11", "not op_mini all"]
+  "lint-staged": {
+    "*.js": [
+      "eslint"
+    ]
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@babel/node": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-airbnb-base": "^13.2.0",
+    "eslint-config-defaults": "^9.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-config-react-app": "^4.0.1",
+    "eslint-config-xo": "^0.26.0",
+    "eslint-config-xo-space": "^0.21.0",
+    "eslint-loader": "^2.2.1",
+    "eslint-plugin-flowtype": "^3.13.0",
+    "eslint-plugin-flowtype-errors": "^4.1.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-require-path-exists": "^1.1.9"
+  },
+  "quokka": {
+    "babel": {
+      "path": "./node_modules/@babel/core"
+    }
+  }
 }
-

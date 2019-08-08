@@ -1,12 +1,42 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+// @flow
+import React, { Fragment } from "react";
+import ReactDOM from "react-dom";
+import App from "./App";
+import { createGlobalStyle } from "styled-components/macro";
+import * as serviceWorker from "./serviceWorker";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const mountPoint = document.getElementById("root");
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
+const GlobalStyles = createGlobalStyle`
+  @font-face {
+    font-family: Fredoka One, regular;
+    font-style: normal;
+    font-weight: 400;
+    
+  }
+  
+  body {
+    font-family: Fredoka One, sans-serif;
+    background: dodgerblue;
+    color: white;
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+`;
+
+export const applyGlobalStyle = (Element: React$ComponentType<any>) => (
+  <Fragment>
+    <Element></Element>
+    <GlobalStyles />
+  </Fragment>
+);
+
+if (mountPoint) {
+  ReactDOM.render(applyGlobalStyle(App), mountPoint);
+}
+
 serviceWorker.unregister();

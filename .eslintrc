@@ -1,0 +1,103 @@
+{
+    "parser": "babel-eslint",
+    "extends": [
+        "xo-space/esnext",
+        "prettier",
+        "plugin:flowtype/recommended",
+        "plugin:react/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
+    ],
+    "plugins": [
+        "prettier",
+        "flowtype",
+        "flowtype-errors",
+        "react",
+        "import",
+        "react-hooks"
+    ],
+    "rules": {
+        "prettier/prettier": [
+            "error",
+            {
+                "singleQuote": false,
+                "trailingComma": "es5"
+            }
+        ],
+        "no-unused-vars": [
+            "warn"
+        ],
+        "indent": [
+            "off"
+        ],
+        "no-alert": "off",
+        "no-warning-comments": "warn",
+        "max-params": "off",
+        "complexity": "off",
+        "quotes": [
+            2,
+            "double",
+            {
+                "avoidEscape": true,
+                "allowTemplateLiterals": true
+            }
+        ],
+        "no-negated-condition": [
+            0
+        ],
+        "camelcase": [
+            0
+        ],
+        "capitalized-comments": [
+            0
+        ],
+        "new-cap": "off",
+        "flowtype/space-after-type-colon": [
+            "off"
+        ],
+        "consistent-return": "warn",
+        "no-console": "off",
+        "flowtype-errors/show-errors": "error",
+        "import/no-unresolved": [
+            2,
+            {
+                "commonjs": true,
+                "amd": true
+            }
+        ],
+        "import/named": 2,
+        "import/namespace": 2,
+        "import/default": 2,
+        "import/export": 2,
+        "no-restricted-imports": [
+            "error",
+            {
+                "paths": [
+                    {
+                        "name": "styled-components",
+                        "message": "Please import from styled-components/macro."
+                    }
+                ],
+                "patterns": [
+                    "!styled-components/macro"
+                ]
+            }
+        ],
+        "react-hooks/rules-of-hooks": "error",
+        "import/no-named-as-default": "off"
+    },
+    "env": {
+        "es6": true,
+        "node": true,
+        "browser": true
+    },
+    "settings": {
+        "flowtype-errors": {
+            "flowDir": "./"
+        },
+        "react": {
+            "version": "16.8.5",
+            "flowVersion": "0.104.0",
+        }
+    }
+}

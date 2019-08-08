@@ -1,0 +1,24 @@
+[ignore]
+.*node_modules.*
+
+[include]
+
+[libs]
+flow-typed/
+
+[lints]
+
+[options]
+emoji=true
+suppress_comment=\\(.\\|\n\\)*\\$flow:
+suppress_comment=\\(.\\|\n\\)*\\$FlowFixMe
+sharedmemory.hash_table_pow=21
+module.name_mapper='.*\(.css\)' -> 'CSSModule'
+server.max_workers=4
+lazy_mode=fs
+module.system.node.resolve_dirname=node_modules
+
+[version]
+0.104.0
+
+[strict]
