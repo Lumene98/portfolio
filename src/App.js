@@ -1,8 +1,11 @@
 // @flow
 import React, { Component } from "react";
 import mojs from "mo-js";
-import Toolbar from "./components/Toolbar";
-import styled from "styled-components/macro";
+import Links from "./components/Links";
+import Toggle from "./components/Toggle";
+import styled, { ThemeProvider } from "styled-components/macro";
+import { lightTheme, darkTheme } from "./theme";
+import { GlobalStyles } from "./global";
 
 const AppWrapper: React$ComponentType<{}> = styled.div`
   display: flex;
@@ -14,6 +17,12 @@ const AppWrapper: React$ComponentType<{}> = styled.div`
   flex-direction: column;
   text-align: center;
   overflow: hidden;
+  font-family: Fredoka One, sans-serif;
+`;
+
+const Header: React$ComponentType<{}> = styled.div`
+  display: flex;
+  align-items: center;
 `;
 
 type Props = {};
@@ -21,15 +30,18 @@ type Props = {};
 type State = {|
   numBurstsToGenerate: number,
   bursts: Array<any>,
+  theme: "light" | "dark",
 |};
 
 class App extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    const localTheme = window.localStorage.getItem("theme");
 
     this.state = {
       numBurstsToGenerate: 5,
       bursts: [],
+      theme: localTheme ? localTheme : "dark",
     };
   }
 
@@ -65,11 +77,7 @@ class App extends Component<Props, State> {
             shape: `line`,
             radius: this.rand({ min: 2, max: 12 }),
             scale: this.rand({ min: 0.5, max: 1.1, int: false }),
-            stroke: `rgb(
-            ${this.rand({ min: 175, max: 255 })},
-            ${this.rand({ min: 175, max: 255 })},
-            ${this.rand({ min: 175, max: 255 })}
-          )`,
+            stroke: `${this.state.theme === "light" ? "#161614" : "#FFF"}`,
             strokeDasharray: `100%`,
             strokeDashoffset: { "-100%": `100%` },
             duration: this.rand({ min: 400, max: 600 }),
@@ -98,12 +106,28 @@ class App extends Component<Props, State> {
       .replay();
   };
 
+  toggleTheme = () => {
+    const { theme } = this.state;
+    this.setState({ theme: theme === "light" ? "dark" : "light" });
+    window.localStorage.setItem("theme", theme);
+  };
+
   render() {
+    const { theme } = this.state;
     return (
-      <AppWrapper onClick={e => this.kaboom(e)}>
-        <h1>{"Hello, I'm Luca..."}</h1>
-        <Toolbar />
-      </AppWrapper>
+      <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>
+        <>
+          <GlobalStyles />
+          <AppWrapper onClick={e => this.kaboom(e)}>
+            <Header>
+              <h1>{`Hello, my name is Luca, I'm ${new Date().getFullYear() -
+                1998}...`}</h1>
+              <Toggle theme={theme} toggleTheme={this.toggleTheme}></Toggle>
+            </Header>
+            <Links theme={theme} />
+          </AppWrapper>
+        </>
+      </ThemeProvider>
     );
   }
 }
