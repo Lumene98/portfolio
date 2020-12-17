@@ -4,6 +4,7 @@ import styled from "styled-components/macro";
 import { lightTheme, darkTheme } from "../theme";
 
 const ToggleWrapper: React$ComponentType<{}> = styled.div`
+  -webkit-tap-highlight-color: transparent;
   position: relative;
   width: 115px;
   height: 49px;

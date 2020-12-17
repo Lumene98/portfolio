@@ -6,7 +6,7 @@ type Props = { theme: string };
 
 const Links = ({ theme }: Props) => {
   return (
-    <div>
+    <div style={{ "-webkit-tap-highlight-color": "transparent" }}>
       <a
         href="https://github.com/lumene98"
         target="_blank"
