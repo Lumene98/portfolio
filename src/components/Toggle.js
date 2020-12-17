@@ -1,6 +1,7 @@
 // @flow
 import React from "react";
 import styled from "styled-components/macro";
+import { lightTheme, darkTheme } from "../theme";
 
 const ToggleWrapper: React$ComponentType<{}> = styled.div`
   position: relative;
@@ -8,6 +9,8 @@ const ToggleWrapper: React$ComponentType<{}> = styled.div`
   height: 49px;
   margin: 10px;
   border-radius: 40px;
+  box-shadow: ${({ theme }) =>
+    theme === "dark" ? "" : "0px 5px 35px #d7d7d7"};
 `;
 
 const CheckBox: React$ComponentType<{}> = styled.input`
@@ -24,7 +27,7 @@ const CheckBox: React$ComponentType<{}> = styled.input`
   z-index: 2;
 
   &:checked + span {
-    background-color: #000;
+    background-color: ${darkTheme.foregroundColor2};
   }
 
   &:active + span {
@@ -32,12 +35,12 @@ const CheckBox: React$ComponentType<{}> = styled.input`
   }
 
   &:checked + span:before {
-    background-color: #000;
+    background-color: ${darkTheme.foregroundColor2};
     transform: translate(56px, -19px);
   }
 
   &:checked + span:after {
-    background-color: #fff;
+    background-color: ${lightTheme.foregroundColor2};
     transform: translate(70px, 0px);
   }
 `;
@@ -50,7 +53,7 @@ const Span: React$ComponentType<{}> = styled.span`
   left: 0px;
   overflow: hidden;
   opacity: 1;
-  background-color: #fff;
+  background-color: ${lightTheme.foregroundColor2};
   border-radius: 40px;
   transition: 0.2s ease background-color, 0.2s ease opacity;
   display: flex;
@@ -67,13 +70,13 @@ const Span: React$ComponentType<{}> = styled.span`
   }
 
   &:before {
-    background-color: #fff;
+    background-color: ${lightTheme.foregroundColor2};
     transform: translate(-58px, 0px);
     z-index: 1;
   }
 
   &:after {
-    background-color: #000;
+    background-color: ${darkTheme.foregroundColor2};
     transform: translate(8px, 0px);
     z-index: 0;
   }
@@ -83,10 +86,11 @@ type Props = { theme: string, toggleTheme: () => void };
 
 const Toggle = ({ theme, toggleTheme }: Props) => {
   return (
-    <ToggleWrapper onClick={toggleTheme}>
+    <ToggleWrapper theme={theme} onClick={toggleTheme}>
       <CheckBox type="checkbox" defaultChecked={theme === "dark"} />
       <Span></Span>
     </ToggleWrapper>
   );
 };
+
 export default Toggle;

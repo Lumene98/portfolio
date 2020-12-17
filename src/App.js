@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import mojs from "mo-js";
 import Links from "./components/Links";
 import Toggle from "./components/Toggle";
+import Footer from "./components/Footer";
 import styled, { ThemeProvider } from "styled-components/macro";
 import { lightTheme, darkTheme } from "./theme";
 import { GlobalStyles } from "./global";
@@ -18,11 +19,6 @@ const AppWrapper: React$ComponentType<{}> = styled.div`
   text-align: center;
   overflow: hidden;
   font-family: Fredoka One, sans-serif;
-`;
-
-const Header: React$ComponentType<{}> = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 type Props = {};
@@ -77,7 +73,11 @@ class App extends Component<Props, State> {
             shape: `line`,
             radius: this.rand({ min: 2, max: 12 }),
             scale: this.rand({ min: 0.5, max: 1.1, int: false }),
-            stroke: `${this.state.theme === "light" ? "#161614" : "#FFF"}`,
+            stroke: `${
+              this.state.theme === "light"
+                ? lightTheme.effectColor
+                : darkTheme.effectColor
+            }`,
             strokeDasharray: `100%`,
             strokeDashoffset: { "-100%": `100%` },
             duration: this.rand({ min: 400, max: 600 }),
@@ -108,8 +108,9 @@ class App extends Component<Props, State> {
 
   toggleTheme = () => {
     const { theme } = this.state;
-    this.setState({ theme: theme === "light" ? "dark" : "light" });
-    window.localStorage.setItem("theme", theme);
+    const newTheme = theme === "light" ? "dark" : "light";
+    this.setState({ theme: newTheme });
+    window.localStorage.setItem("theme", newTheme);
   };
 
   render() {
@@ -119,11 +120,11 @@ class App extends Component<Props, State> {
         <>
           <GlobalStyles />
           <AppWrapper onClick={e => this.kaboom(e)}>
-            <Header>
-              <h1>{`Hello, my name is Luca, I'm ${new Date().getFullYear() -
-                1998}...`}</h1>
+            <Footer theme={theme}>
               <Toggle theme={theme} toggleTheme={this.toggleTheme}></Toggle>
-            </Header>
+            </Footer>
+            <h1>{`Hello, my name is Luca, I'm ${new Date().getFullYear() -
+              1998}...`}</h1>
             <Links theme={theme} />
           </AppWrapper>
         </>
