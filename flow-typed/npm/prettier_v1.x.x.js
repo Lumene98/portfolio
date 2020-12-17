@@ -1,5 +1,5 @@
-// flow-typed signature: ec743a1b5c1197353e0849812930f32a
-// flow-typed version: c6154227d1/prettier_v1.x.x/flow_>=v0.104.x
+// flow-typed signature: 3529f11478cac93b355c470fa2c2f407
+// flow-typed version: 01acbe56d4/prettier_v1.x.x/flow_>=v0.104.x
 
 declare module "prettier" {
   declare export type AST = { [key: string]: any, ... };
@@ -204,6 +204,11 @@ declare module "prettier" {
     languages: Array<SupportLanguage>,
     options: Array<SupportOption>
   |};
+                                                             
+  declare export type FileInfo = {|
+    ignored: boolean,
+    inferredParser: PrettierParserName | null,
+  |};                                                          
 
   declare export type Prettier = {|
     format: (source: string, options?: Options) => string,
@@ -215,7 +220,8 @@ declare module "prettier" {
       ...
     },
     clearConfigCache: () => void,
-    getSupportInfo: (version?: string) => SupportInfo
+    getSupportInfo: (version?: string) => SupportInfo,
+    getFileInfo: (filePath: string) => Promise<FileInfo>
   |};
 
   declare export default Prettier;

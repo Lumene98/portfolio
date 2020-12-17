@@ -85,7 +85,10 @@ const Span: React$ComponentType<{}> = styled.span`
 
 type Props = { theme: string, toggleTheme: () => void };
 
-const Toggle = ({ theme, toggleTheme }: Props) => {
+const Toggle = ({
+  theme,
+  toggleTheme,
+}: Props): React$Element<React$ComponentType<any>> => {
   return (
     <ToggleWrapper theme={theme} onClick={toggleTheme}>
       <CheckBox type="checkbox" defaultChecked={theme === "dark"} />

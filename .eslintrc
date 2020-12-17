@@ -97,7 +97,7 @@
         },
         "react": {
             "version": "16.8.5",
-            "flowVersion": "0.104.0",
+            "flowVersion": "0.140.0"
         }
     }
 }

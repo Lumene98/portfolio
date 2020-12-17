@@ -6,7 +6,9 @@ import * as serviceWorker from "./serviceWorker";
 
 const mountPoint = document.getElementById("root");
 
-export const applyGlobalStyle = (Element: React$ComponentType<any>) => (
+export const applyGlobalStyle = (
+  Element: React$ComponentType<any>
+): React$Element<React$FragmentType> => (
   <Fragment>
     <Element></Element>
   </Fragment>

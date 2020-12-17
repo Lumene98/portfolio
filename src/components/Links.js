@@ -4,7 +4,7 @@ import { lightTheme, darkTheme } from "../theme";
 
 type Props = { theme: string };
 
-const Links = ({ theme }: Props) => {
+const Links: React$ComponentType<Props> = ({ theme }: Props) => {
   return (
     <div style={{ "-webkit-tap-highlight-color": "transparent" }}>
       <a

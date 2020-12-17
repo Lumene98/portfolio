@@ -41,14 +41,10 @@ class App extends Component<Props, State> {
     };
   }
 
-  rand = ({
+  rand: ({ int?: boolean, max?: number, min?: number, ... }) => number = ({
     min = 0,
     max = 1,
     int = true,
-  }: {
-    min?: number,
-    max?: number,
-    int?: boolean,
   }) => {
     if (int) {
       return Math.floor(Math.random() * (max - min) + min);
@@ -57,7 +53,7 @@ class App extends Component<Props, State> {
     return Math.random() * (max - min) + min;
   };
 
-  generateBursts = () => {
+  generateBursts: () => void = () => {
     this.setState({
       bursts: [],
     });
@@ -94,7 +90,7 @@ class App extends Component<Props, State> {
     }
   };
 
-  kaboom = (e: MouseEvent) => {
+  kaboom: (e: MouseEvent) => void = e => {
     e.stopPropagation();
 
     if (this.state.bursts.length !== this.state.numBurstsToGenerate) {
@@ -106,14 +102,14 @@ class App extends Component<Props, State> {
       .replay();
   };
 
-  toggleTheme = () => {
+  toggleTheme: () => void = () => {
     const { theme } = this.state;
     const newTheme = theme === "light" ? "dark" : "light";
     this.setState({ theme: newTheme });
     window.localStorage.setItem("theme", newTheme);
   };
 
-  render() {
+  render(): React$Element<any> {
     const { theme } = this.state;
     return (
       <ThemeProvider theme={theme === "light" ? lightTheme : darkTheme}>

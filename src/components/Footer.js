@@ -25,6 +25,9 @@ type Props = {
   theme: string,
 };
 
-export default function Footer({ children, theme }: Props) {
+export default function Footer({
+  children,
+  theme,
+}: Props): React$Element<React$ComponentType<any>> {
   return <Container theme={theme}>{children}</Container>;
 }
